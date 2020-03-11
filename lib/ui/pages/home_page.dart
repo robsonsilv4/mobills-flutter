@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobills_flutter/ui/shared/widgets/mobills_button.dart';
+import 'package:mobills_flutter/ui/shared/widgets/mobills_card.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -191,67 +193,39 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          // TODO: Adicionar bordas arredondadas
-          Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: 4.0,
+          MobillsCard(
+            icon: Icons.card_giftcard,
+            text:
+                'Ops! Você ainda não tem nenhum cartão de crédito cadastrado.',
+            description: 'Melhore seu controle financeiro agora!',
+            button: MobillsButton(
+              text: 'ADICIONAR NOVO CARTÃO',
             ),
-            child: Card(
-              elevation: 1.0,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                  vertical: 20.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 15.0),
-                      child: Icon(
-                        Icons.card_giftcard,
-                        color: Colors.grey.shade600,
-                        size: 36.0,
-                      ),
-                    ),
-                    Text(
-                      'Ops! Você ainda não tem nenhum cartão de crédito cadastrado.',
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 22.0,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Melhore seu controle financeiro agora!',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
-                    FlatButton(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20.0,
-                        vertical: 15.0,
-                      ),
-                      color: Colors.blue.shade600,
-                      child: Text(
-                        'ADICIONAR NOVO CARTÃO',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+                top: 20.0,
+                bottom: 8.0,
+              ),
+              child: Text(
+                'Despesas por categoria',
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
                 ),
               ),
             ),
+          ),
+          MobillsCard(
+            icon: Icons.graphic_eq,
+            text: 'Opa! Você não tem despesas cadastradas esse mês.',
+            description:
+                'Adicione seus gastos no mês atual para ver seus gráficos',
           ),
         ],
       ),
