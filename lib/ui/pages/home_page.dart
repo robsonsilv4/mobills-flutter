@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mobills_flutter/ui/shared/widgets/mobills_button.dart';
@@ -54,32 +55,55 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // TODO: Corrigir padding dos itens.
       // TODO: Adicionar animação de transição
       bottomNavigationBar: Visibility(
         visible: _isVisible,
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Principal'),
+        child: BottomAppBar(
+          // Acho que fica melhor do que a original :)
+          shape: CircularNotchedRectangle(),
+          child: Container(
+            height: 58.0,
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                _barItem(icon: Icons.home, text: 'Principal', selected: true),
+                _barItem(icon: Icons.line_weight, text: 'Transações'),
+                SizedBox(width: 16.0),
+                _barItem(icon: Icons.flag, text: 'Planejamento'),
+                _barItem(icon: Icons.more_horiz, text: 'Mais'),
+              ],
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.line_weight),
-              title: Text('Transações'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.flag),
-              title: Text('Planejamento'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.more_horiz),
-              title: Text('Mais'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _barItem({
+    @required IconData icon,
+    String text,
+    bool selected = false,
+  }) {
+    return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(icon, color: selected ? Colors.blue : Colors.grey),
+            Text(
+              text ?? '',
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: selected ? Colors.blue : Colors.grey,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),
       ),
+      onTap: () {},
     );
   }
 
@@ -410,8 +434,15 @@ class _HomePageState extends State<HomePage> {
           ),
           Container(
             height: 150.0,
-            color: Colors.transparent,
-            // TODO: Adicionar vetor de dinheiro
+            margin: EdgeInsets.only(top: 15.0),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              image: DecorationImage(
+                image: AssetImage('images/coins.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ],
       ),
