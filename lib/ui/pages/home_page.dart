@@ -1,9 +1,43 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mobills_flutter/ui/shared/widgets/mobills_button.dart';
 import 'package:mobills_flutter/ui/shared/widgets/mobills_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final _scrollController = ScrollController();
+  bool _isVisible;
+
+  @override
+  void initState() {
+    super.initState();
+    _isVisible = true;
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        if (_isVisible) {
+          setState(() {
+            _isVisible = false;
+          });
+        }
+      }
+
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        if (!_isVisible) {
+          setState(() {
+            _isVisible = true;
+          });
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,11 +45,47 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: _body(),
       ),
+      floatingActionButton: Visibility(
+        visible: _isVisible,
+        child: FloatingActionButton(
+          backgroundColor: Colors.indigoAccent.shade700,
+          child: Icon(Icons.add),
+          onPressed: () {},
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // TODO: Corrigir padding dos itens.
+      // TODO: Adicionar animação de transição
+      bottomNavigationBar: Visibility(
+        visible: _isVisible,
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Principal'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.line_weight),
+              title: Text('Transações'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.flag),
+              title: Text('Planejamento'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.more_horiz),
+              title: Text('Mais'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
   Widget _body() {
     return SingleChildScrollView(
+      controller: _scrollController,
       child: Column(
         children: <Widget>[
           Container(
@@ -33,7 +103,7 @@ class HomePage extends StatelessWidget {
                     spreadRadius: 0,
                   )
                 ]),
-            child: Column(
+            child: ListView(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -247,7 +317,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Container(
-            height: 200.0, // Tinha esquecido disso :(
+            height: 200.0,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 8,
@@ -342,9 +412,15 @@ class HomePage extends StatelessWidget {
             height: 150.0,
             color: Colors.transparent,
             // TODO: Adicionar vetor de dinheiro
-          )
+          ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.removeListener(() {});
   }
 }
