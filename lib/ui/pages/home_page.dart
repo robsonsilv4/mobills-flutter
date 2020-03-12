@@ -227,6 +227,122 @@ class HomePage extends StatelessWidget {
             description:
                 'Adicione seus gastos no mês atual para ver seus gráficos',
           ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+                top: 20.0,
+                bottom: 8.0,
+              ),
+              child: Text(
+                'Blog Mobills',
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            height: 200.0, // Tinha esquecido disso :(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 8,
+              itemBuilder: (context, index) {
+                return Stack(
+                  alignment: Alignment.topCenter,
+                  children: <Widget>[
+                    Container(
+                      width: 300.0,
+                      height: 200.0,
+                      margin: EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 4,
+                            spreadRadius: 1,
+                          )
+                        ],
+                        image: DecorationImage(
+                          image: NetworkImage('https://picsum.photos/400'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        width: 300.0,
+                        height: 100.0,
+                        margin: EdgeInsets.all(10.0),
+                        // margin: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Text(
+                                  'Saiba como usar o cartão de crédito a seu favor.',
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'MAIS ARTIGOS',
+                                    style: TextStyle(
+                                      color: Colors.blue.shade600,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  // SizedBox(width: 25.0),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 25.0,
+                                      right: 5.0,
+                                    ),
+                                    child: Text(
+                                      'LEIA MAIS',
+                                      style: TextStyle(
+                                        color: Colors.blue.shade600,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+          Container(
+            height: 150.0,
+            color: Colors.transparent,
+            // TODO: Adicionar vetor de dinheiro
+          )
         ],
       ),
     );
