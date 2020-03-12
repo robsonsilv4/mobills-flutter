@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mobills_flutter/ui/shared/widgets/mobills_button.dart';
 import 'package:mobills_flutter/ui/shared/widgets/mobills_card.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -349,24 +351,35 @@ class _HomePageState extends State<HomePage> {
                 return Stack(
                   alignment: Alignment.topCenter,
                   children: <Widget>[
-                    Container(
-                      width: 300.0,
-                      height: 200.0,
-                      margin: EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 4,
-                            spreadRadius: 1,
-                          )
-                        ],
-                        image: DecorationImage(
-                          image: NetworkImage('https://picsum.photos/400'),
-                          fit: BoxFit.cover,
+                    CachedNetworkImage(
+                      imageUrl: 'https://picsum.photos/400',
+                      imageBuilder: (context, imageProvider) => Container(
+                        width: 300.0,
+                        height: 200.0,
+                        margin: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 4,
+                              spreadRadius: 1,
+                            )
+                          ],
+                          color: Colors.white,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.colorBurn,
+                            ),
+                          ),
                         ),
                       ),
+                      placeholder: (context, url) =>
+                          Image.memory(kTransparentImage),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
@@ -454,4 +467,28 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
     _scrollController.removeListener(() {});
   }
+}
+
+class AnimatedDecorationImage extends DecorationImage {
+  AnimatedDecorationImage({
+    @required Animation<Color> colorAnimation,
+    @required ImageProvider image,
+    BoxFit fit,
+    AlignmentGeometry alignment = Alignment.center,
+    Rect centerSlice,
+    ImageRepeat repeat = ImageRepeat.noRepeat,
+    bool matchTextDirection = false,
+  })  : assert(image != null),
+        assert(alignment != null),
+        assert(repeat != null),
+        assert(matchTextDirection != null),
+        super(
+          image: image,
+          colorFilter: ColorFilter.mode(colorAnimation.value, BlendMode.color),
+          fit: fit,
+          alignment: alignment,
+          centerSlice: centerSlice,
+          repeat: repeat,
+          matchTextDirection: matchTextDirection,
+        );
 }
