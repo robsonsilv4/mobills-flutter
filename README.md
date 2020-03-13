@@ -2,6 +2,14 @@
 
 Clone do aplicativo da [Mobills](https://play.google.com/store/apps/details?id=br.com.gerenciadorfinanceiro.controller&hl=pt_BR) utilizando Dart e Flutter.
 
+### Prévia
+|         |            |
+| :---: |:---:|
+| ![01](./screenshots/01.png) | ![01](./screenshots/01.png) |
+|      |    |
+
+Postagem no [LinkedIn](https://www.linkedin.com/posts/robsonsilv4_flutter-desafio-mobills-activity-6644069515015581696-88FU).
+
 ### Configurando o projeto
 Clone o projeto utilizando SSH ou HTTPS:
 ```shell script
