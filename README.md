@@ -5,7 +5,7 @@ Clone do aplicativo da [Mobills](https://play.google.com/store/apps/details?id=b
 ### Prévia
 |         |            |
 | :---: |:---:|
-| ![01](./screenshots/01.png) | ![01](./screenshots/01.png) |
+| ![01](./screenshots/01.png) | ![02](./screenshots/02.png) |
 |      |    |
 
 Postagem no [LinkedIn](https://www.linkedin.com/posts/robsonsilv4_flutter-desafio-mobills-activity-6644069515015581696-88FU).
